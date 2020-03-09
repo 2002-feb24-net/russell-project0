@@ -4,14 +4,15 @@ using System.Collections.Generic;
 namespace StoreApplication
 {
     class Order
-    {  
-        static List<Order> orderHistory;
-        Dictionary<Product, int> orderedProducts;
+    { 
+        static List<Order> orderHistory = new List<Order>();
+        List<Product> orderedProducts;
+        List<int> productQuantities;
         Customer myCustomer;
         Store myStore;
         string orderID;
 
-        public Order(Store sto, Customer cust, Dictionary<Product, int> prods)
+        public Order(Store sto, Customer cust, List<Product> prods, List<int> quantities)
         {
             myStore = sto;
             myCustomer = cust;
@@ -25,35 +26,9 @@ namespace StoreApplication
             double total = 0;
             foreach(var item in orderedProducts)
             {
-                total += item.Key.price * item.Value;
+                total += item.Total;
             }
             return total;
-        }
-
-        public List<Order> GetHistory(Store store)
-        {
-            var history = new List<Order>();
-            foreach (var item in orderHistory)
-            {
-                if(store.storeID == item.myStore.storeID)
-                {
-                    history.Add(item);
-                }
-            }
-            return history;
-        }
-
-        public List<Order> GetHistory(Customer customer)
-        {
-            var history = new List<Order>();
-            foreach (var item in orderHistory)
-            {
-                if(customer.customerID == item.myCustomer.customerID)
-                {
-                    history.Add(item);
-                }
-            }
-            return history;
         }
     }
 }

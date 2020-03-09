@@ -4,15 +4,21 @@ namespace StoreApplication
 {
     class Product
     {
-        string productName;
-        int stock;
-        public double price { get; set; }
-
-        public Product(string pname, int q, double p)
+        string _productName;
+        int _stock;
+        double _price;
+        public double Price { get{ return _price; } }
+        public string ProductName { get{ return _productName; } }
+        
+        public Product(string pName, int st, double pr)
         {
-            productName = pname;
-            stock = q;
-            price = p;
+            _productName = pName;
+            _stock = st;
+            _price = pr;
+        }
+        public override string ToString()
+        {
+            return "Name: " + _productName + ", Price: " + _price + ", In stock: " + _stock;
         }
     }
 }
