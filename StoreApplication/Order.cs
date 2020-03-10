@@ -7,28 +7,30 @@ namespace StoreApplication
     { 
         static List<Order> orderHistory = new List<Order>();
         List<Product> orderedProducts;
-        List<int> productQuantities;
         Customer myCustomer;
         Store myStore;
         string orderID;
 
-        public Order(Store sto, Customer cust, List<Product> prods, List<int> quantities)
+        public Order(Store store, Customer customer, List<Product> products)
         {
-            myStore = sto;
-            myCustomer = cust;
-            orderedProducts = prods;
+            myStore = store;
+            myCustomer = customer;
+            orderedProducts = products;
             Random rand = new Random();
             orderHistory.Add(this);
         }
 
-        public double GetTotal()
+        public void PrintReceipt()
         {
+            Console.WriteLine("Order ID: " + orderID);
+            Console.WriteLine(myStore.ToString());
+            Console.WriteLine(myCustomer.ToString());
             double total = 0;
             foreach(var item in orderedProducts)
             {
-                total += item.Total;
+                Console.WriteLine(item.ToStringReceipt());
+                total += item.Price * item.Quantity;
             }
-            return total;
         }
     }
 }

@@ -4,21 +4,26 @@ namespace StoreApplication
 {
     class Product
     {
-        string _productName;
-        int _stock;
-        double _price;
-        public double Price { get{ return _price; } }
-        public string ProductName { get{ return _productName; } }
+        string productName;
+        int quantity;
+        double price;
+        public double Price { get{ return price; } }
+        public string ProductName { get{ return productName; } }
+        public int Quantity { get{ return quantity; } }
         
-        public Product(string pName, int st, double pr)
+        public Product(string productName, int quantity, double price)
         {
-            _productName = pName;
-            _stock = st;
-            _price = pr;
+            this.productName = productName;
+            this.quantity = quantity;
+            this.price = price;
         }
-        public override string ToString()
+        public string ToStringStore()
         {
-            return "Name: " + _productName + ", Price: " + _price + ", In stock: " + _stock;
+            return "Name: " + productName + ", Price: $" + price + ", In stock: " + quantity;
+        }
+        public string ToStringReceipt()
+        {
+            return "Name: " + productName + ", Price for each: $" + price + ", Amount: " + quantity + " Cost: $" + (_price * _quantity);
         }
     }
 }

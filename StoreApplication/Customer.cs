@@ -11,17 +11,24 @@ namespace StoreApplication
         string email;
         List<Product> shoppingCart;
 
-        public Customer(string n, string e)
+        public Customer(string name, string email)
         {
-            name = n;
-            email = e;
+            this.name = name;
+            this.email = email;
             Random rand = new Random();
             customerID = "C" + rand.Next(10000, 100000);
             shoppingCart = new List<Product>();
         }
         public void addToCart(Product product, int amount)
         {
-            Product cartItem = new Product(product.ProductName, amount, product.Price);
+            if(product.Quantity < amount)
+            {
+                Console.WriteLine("Error! Amount exceeds stock. Unable to add to cart.");
+            }
+            else
+            {
+                Product cartItem = new Product(product.ProductName, amount, product.Price);
+            }
         }
         public void PlaceOrder(Store store)
         {
@@ -31,13 +38,18 @@ namespace StoreApplication
             }
             else
             {
+                var placedOrded = new Order(store, this, shoppingCart);
                 Console.WriteLine("Here is your receipt.");
                 foreach (var item in shoppingCart)
                 {
-                    Console.WriteLine(item.ToStringBought());
+                    Console.WriteLine(item.ToStringReceipt());
                 }
                 Console.WriteLine("Your total is: ");
             }
+        }
+        public override String ToString()
+        {
+            return "Name: " + name + ", Email: " + email + ", ID: " + customerID;
         }
     }
 }

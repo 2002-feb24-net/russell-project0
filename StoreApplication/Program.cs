@@ -22,8 +22,6 @@ namespace StoreApplication
                 store.addStock(new Product("TCG Booster Pack", 5000, 4.19));
                 store.addStock(new Product("Board Game", 200, 49.99));
             }
-
-            var myCustomers = new List<Customer>();
             bool marketIsBooming = true;
 
             while(marketIsBooming)
@@ -31,7 +29,6 @@ namespace StoreApplication
                 string name = getInputString("What's your name?: ");
                 string email = getInputString("What's your email address?: ");
                 var currentCust = new Customer(name, email);
-                myCustomers.Add(currentCust);
                 Console.WriteLine("Here are out available locations.");
                 for (int i = 0; i < myStores.Count; i++)
                 {

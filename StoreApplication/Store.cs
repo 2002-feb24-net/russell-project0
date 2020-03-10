@@ -11,10 +11,10 @@ namespace StoreApplication
         string storeID;
 
 
-        public Store(string sName, string loc)
+        public Store(string storeName, string location)
         {
-            storeName = sName;
-            location = loc;
+            this.storeName = storeName;
+            this.location = location;
             Random rand = new Random();
             storeID = "S" + rand.Next(10000, 100000);
             storeProducts = new List<Product>();
@@ -36,13 +36,13 @@ namespace StoreApplication
             string[] prods = new string[storeProducts.Count];
             for (int i = 0; i < storeProducts.Count; i++)
             {
-                prods[i] = storeProducts[i].ToString();
+                prods[i] = storeProducts[i].ToStringStore();
             }
             return prods;
         }
         public override string ToString()
         {
-            return storeName + ", " + location;
+            return "Store Name: " + storeName + ", Location: " + location + ", ID: " + storeID;
         }
         public Product SelectProduct(int i)
         {
