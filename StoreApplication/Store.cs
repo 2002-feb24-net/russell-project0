@@ -48,5 +48,9 @@ namespace StoreApplication
         {
             return storeProducts[i];
         }
+        public void CompleteTransaction(Customer buyer, List<Product> items)
+        {
+            double checkoutTotal = buyer.TotalInCart();
+        }
     }
 }

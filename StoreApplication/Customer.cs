@@ -8,13 +8,12 @@ namespace StoreApplication
         static List<Customer> allCustomers = new List<Customer>();
         string name;
         string customerID;
-        string email;
+        double balance = 10000;
         List<Product> shoppingCart;
 
-        public Customer(string name, string email)
+        public Customer(string name)
         {
             this.name = name;
-            this.email = email;
             Random rand = new Random();
             customerID = "C" + rand.Next(10000, 100000);
             shoppingCart = new List<Product>();
@@ -24,6 +23,10 @@ namespace StoreApplication
             if(product.Quantity < amount)
             {
                 Console.WriteLine("Error! Amount exceeds stock. Unable to add to cart.");
+            }
+            else if((TotalInCart() + product.Price * amount) > balance)
+            {
+                Console.WriteLine("You can't afford that!");
             }
             else
             {
@@ -50,6 +53,19 @@ namespace StoreApplication
         public override String ToString()
         {
             return "Name: " + name + ", Email: " + email + ", ID: " + customerID;
+        }
+        public double TotalInCart()
+        {
+            double total = 0;
+            foreach (var item in shoppingCart)
+            {
+                total += item.Price * item.Quantity;
+            }
+            return total;
+        }
+        public void EmptyCart()
+        {
+            shoppingCart = new List<Product>();
         }
     }
 }

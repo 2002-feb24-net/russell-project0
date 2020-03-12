@@ -27,8 +27,7 @@ namespace StoreApplication
             while(marketIsBooming)
             {
                 string name = getInputString("What's your name?: ");
-                string email = getInputString("What's your email address?: ");
-                var currentCust = new Customer(name, email);
+                var currentCust = new Customer(name);
                 Console.WriteLine("Here are out available locations.");
                 for (int i = 0; i < myStores.Count; i++)
                 {
