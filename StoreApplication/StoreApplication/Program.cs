@@ -1,5 +1,9 @@
-﻿using System;
+﻿using StoreLibrary;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace StoreApplication
 {
@@ -15,7 +19,7 @@ namespace StoreApplication
             myStores.Add(new Store("Game Store 3", "Florida"));
 
             // Stock each of the stores with the same products.
-            foreach(var store in myStores)
+            foreach (var store in myStores)
             {
                 // Each "Game Store" sells three different products.
                 store.addStock(new Product("TCG Booster Box", 500, 99.99));
@@ -24,7 +28,7 @@ namespace StoreApplication
             }
             bool marketIsBooming = true;
 
-            while(marketIsBooming)
+            while (marketIsBooming)
             {
                 string name = getInputString("What's your name?: ");
                 var currentCust = new Customer(name);
@@ -34,14 +38,14 @@ namespace StoreApplication
                     Console.WriteLine(myStores[i].ToString());
                 }
                 int whichStore = getInputInt("What store would you like to visit? Please use the number corresponding to the store, or " + myStores.Count + " to quit.");
-                if(whichStore >= 0 && whichStore < myStores.Count)
+                if (whichStore >= 0 && whichStore < myStores.Count)
                 {
                     Store myStore = myStores[whichStore];
                     Console.WriteLine("Welcome " + name + " to " + myStore.ToString() + "!");
                     bool checkout = false;
                     bool quit = false;
 
-                    while(!checkout && !quit)
+                    while (!checkout && !quit)
                     {
                         string[] storeProducts = myStore.AllProducts();
                         Console.WriteLine("Here's a list of the available products.");
@@ -50,13 +54,13 @@ namespace StoreApplication
                             Console.WriteLine(i + ". " + storeProducts[i]);
                         }
                         int doItem = getInputInt("Input the product number you want to add to your cart, " +
-                            storeProducts.Length + " to go to checkout, or " + (storeProducts.Length+1) + " to quit.");
-                        if(doItem >= 0 && doItem < storeProducts.Length)
+                            storeProducts.Length + " to go to checkout, or " + (storeProducts.Length + 1) + " to quit.");
+                        if (doItem >= 0 && doItem < storeProducts.Length)
                         {
                             int amount = getInputInt("How many would you like to purchase?: ");
                             currentCust.addToCart(myStore.SelectProduct(doItem), amount);
                         }
-                        else if(doItem == storeProducts.Length)
+                        else if (doItem == storeProducts.Length)
                         {
 
                         }
@@ -79,7 +83,7 @@ namespace StoreApplication
         {
             bool inputValid = false;
             int inputInt = 0;
-            while(!inputValid)
+            while (!inputValid)
             {
                 string strInput = getInputString(msg);
                 try
@@ -93,6 +97,36 @@ namespace StoreApplication
                 }
             }
             return inputInt;
+        }
+        private async static Task<string> ReadFromFileAsync(string filePath)
+        {
+            using var sr = new StreamReader(filePath);
+            Task<string> textTask = sr.ReadToEndAsync();
+            string text = await textTask;
+            return text;
+        }
+        private async static Task WriteToFileAsync(string text, string path)
+        {
+            FileStream file = null;
+            try
+            {
+                file = new FileStream(path, FileMode.Create);
+                byte[] data = Encoding.UTF8.GetBytes(text);
+
+                await file.WriteAsync(data);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine($"Access to file {path} is not allowed by the OS:");
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (file != null)
+                {
+                    file.Dispose();
+                }
+            }
         }
     }
 }
