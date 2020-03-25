@@ -71,7 +71,8 @@ namespace StoreApp.Data
                                       select new { sto, inv, pro };
                 foreach (var prod in productsInStore.ToList())
                 {
-                    Console.WriteLine("Product ID: " + prod.pro.Id + ", Name: " + prod.pro.ProductName + ", In Stock: " + prod.inv.Stock);
+                    Console.WriteLine("Product ID: " + prod.pro.Id + ", Name: " + prod.pro.ProductName + ", Price: $" +
+                                      prod.pro.Price + ", In Stock: " + prod.inv.Stock);
                 }
             }
         }
@@ -123,6 +124,12 @@ namespace StoreApp.Data
         // This method places an order when given a store, customer, and cart of product ids and quantities.
         public void PlaceOrder(Store store, Customer customer, Dictionary<int, int> cart)
         {
+            if (cart.Count < 1)
+            {
+                Console.WriteLine("You don't have anything in your cart...");
+                return;
+            }
+
             using (var context = new RGProject0Context())
             {
                 var order = new OrderHistory() { StoreId = store.Id, CustomerId = customer.Id };
