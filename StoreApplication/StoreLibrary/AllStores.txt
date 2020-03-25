@@ -1,4 +1,0 @@
-Game Store 0,Texas,12345
-Game Store 1,California,12346
-Game Store 2,New York,12347
-Game Store 3,Florida,12348

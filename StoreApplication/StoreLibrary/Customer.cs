@@ -5,11 +5,12 @@ namespace StoreLibrary
 {
     public class Customer
     {  
-        static List<Customer> allCustomers = new List<Customer>();
         string firstName;
         string lastName;
         int customerID;
         ShoppingCart myCart;
+
+        public int CustomerID { get { return customerID; } }
 
         public Customer(string firstName, string lastName, int customerID)
         {

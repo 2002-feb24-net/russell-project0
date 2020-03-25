@@ -1,3 +1,0 @@
-TCG Booster Box,1111,500,99.99
-TCG Booster Pack,1112,5000,4.19
-Board Game,1113,200,49.99
