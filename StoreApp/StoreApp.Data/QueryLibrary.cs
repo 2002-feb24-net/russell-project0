@@ -31,19 +31,9 @@ namespace StoreApp.Data
         // This method gets a Store when provided with a store id.
         public Store GetStore(int sid)
         {
-            using (var context = new RGProject0Context())
-            {
-                Store store = null;
-                try
-                {
-                    store = context.Store.First(s => s.Id == sid);
-                }
-                catch (InvalidOperationException)
-                {
-                    Console.WriteLine("Error! Store not found.");
-                }
-                return store;
-            }
+            using var context = new RGProject0Context();
+            return context.Store.Find(sid);
+        
         }
         // This method prints all products in a given store.
         public void PrintStoreProducts(Store store)
