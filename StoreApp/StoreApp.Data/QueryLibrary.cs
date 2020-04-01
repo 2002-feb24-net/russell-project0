@@ -24,14 +24,7 @@ namespace StoreApp.Data
             using (var context = new RGProject0Context())
             {
                 Customer customer = null;
-                try
-                {
-                    customer = context.Customer.First(c => c.FirstName == fname && c.LastName == lname);
-                }
-                catch (InvalidOperationException)
-                {
-                    Console.WriteLine("Error! Customer not found.");
-                }
+                customer = context.Customer.FirstOrDefault(c => c.FirstName == fname && c.LastName == lname);
                 return customer;
             }
         }
