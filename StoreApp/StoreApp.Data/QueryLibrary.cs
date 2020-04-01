@@ -34,14 +34,7 @@ namespace StoreApp.Data
             using (var context = new RGProject0Context())
             {
                 Store store = null;
-                try
-                {
-                    store = context.Store.First(s => s.Id == sid);
-                }
-                catch (InvalidOperationException)
-                {
-                    Console.WriteLine("Error! Store not found.");
-                }
+                store = context.Store.FirstOrDefault(s => s.Id == sid);
                 return store;
             }
         }
