@@ -14,14 +14,7 @@ namespace StoreApp.Data
             using (var context = new RGProject0Context())
             {
                 Customer customer = null;
-                try
-                {
-                    customer = context.Customer.First(c => c.Id == id);
-                }
-                catch (InvalidOperationException)
-                {
-                    Console.WriteLine("Error! Customer not found.");
-                }
+                customer = context.Customer.FirstOrDefault(c => c.Id == id);
                 return customer;
             }
         }
